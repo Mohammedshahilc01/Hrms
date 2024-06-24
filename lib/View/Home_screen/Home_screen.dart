@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            PhotoWidgetData(
+            CustomPhoto(
               name: "Welcome Mohammed",
               imgUrl:
                   "https://img.freepik.com/free-photo/medium-shot-smiley-man-posing_23-2149915892.jpg",
@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  const CheckInWidgetData(),
+                  const CustomCheckIn(),
                   Padding(
                     padding:
                         const EdgeInsets.only(right: 8.0, left: 8.0, top: 10),
@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          LeaveStatusWidgetData(
+                          CustomLeaveStatus(
                               textColor: Colors.green,
                               color: Colors.greenAccent[100],
                               leave: "Casual Leaves",
@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(
                             width: 5,
                           ),
-                          LeaveStatusWidgetData(
+                          CustomLeaveStatus(
                               color: Colors.red[100],
                               textColor: Colors.red,
                               leave: "Sick Leaves",
@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(
                             width: 5,
                           ),
-                          LeaveStatusWidgetData(
+                          CustomLeaveStatus(
                               color: Colors.blue[100],
                               textColor: Colors.blue,
                               leave: "Privilege Leaves",
@@ -85,15 +85,15 @@ class HomeScreen extends StatelessWidget {
                       fontSize: 16,
                     )
                   ),
-                  AnnouncementWidgetData(
+                  CustomAnnouncement(
                     title: 'Upload Documents',
                     data: 'Upload your last degree documents or send to Hr email idUpload your last degree documents or send to Hr email id',
                   ),
-                  AnnouncementWidgetData(
+                  CustomAnnouncement(
                     title:'Meeting',
                     data: 'Meeting Scheduled on Monday',
                   ),
-                  AnnouncementWidgetData(
+                  CustomAnnouncement(
                     title: 'Upload Documents',
                     data: 'Upload your last degree documents or send to Hr email idUpload your last degree documents or send to Hr email id',
                   ),
@@ -109,7 +109,7 @@ class HomeScreen extends StatelessWidget {
       drawer: const SafeArea(
         child: DrawerWidgetData(),
       ),
-      bottomNavigationBar:const BottomNavigationWidgetData(),
+      bottomNavigationBar:const CustomBottomNavigationBar(),
     );
   }
 }

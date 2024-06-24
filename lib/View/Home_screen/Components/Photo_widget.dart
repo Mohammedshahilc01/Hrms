@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hrm/Controller/GlobalVariable/GlobalVariable.dart';
 import 'package:hrm/Controller/Widget/TextWidget.dart';
-class PhotoWidgetData extends StatelessWidget {
+class CustomPhoto extends StatelessWidget {
   
   String? imgUrl;
   String? name;
   String? position;
-  PhotoWidgetData({super.key, this.imgUrl,this.name,this.position});
+  CustomPhoto({super.key, this.imgUrl,this.name,this.position});
 
   @override
   Widget build(BuildContext context) {

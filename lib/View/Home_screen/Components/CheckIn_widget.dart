@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hrm/Controller/Color_list/Color_list.dart';
 import 'package:hrm/Controller/Widget/TextWidget.dart';
 
-class CheckInWidgetData extends StatelessWidget {
-  const CheckInWidgetData({super.key});
+class CustomCheckIn extends StatelessWidget {
+  const CustomCheckIn({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +41,8 @@ class CheckInWidgetData extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.deepOrange,
-                  borderRadius: BorderRadius.circular(10),
+                  color: ColorList.backgroundColor,
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 child: Center(
                     child: Padding(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hrm/Controller/Widget/TextWidget.dart';
-class AnnouncementWidgetData extends StatelessWidget {
+class CustomAnnouncement extends StatelessWidget {
   String? title;
   String? data;
 
-   AnnouncementWidgetData({super.key, this.title,this.data});
+   CustomAnnouncement({super.key, this.title,this.data});
 
   @override
   Widget build(BuildContext context) {

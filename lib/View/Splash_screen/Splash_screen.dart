@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrm/Controller/Color_list/Color_list.dart';
 import 'package:hrm/Controller/Route_names/Route_names.dart';
@@ -6,11 +7,25 @@ import 'package:hrm/Controller/String_list/String_list.dart';
 import 'package:hrm/Controller/Widget/TextWidget.dart';
 import 'package:hrm/View/Login_screen/Login_screen.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 2),() => context.go("/FrontScreen"),);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: ColorList.backgroundColor,
+    ));
     return Scaffold(
         body: Container(
             color: ColorList.backgroundColor,
@@ -21,9 +36,9 @@ class SplashScreen extends StatelessWidget {
                 const SizedBox(),
                 GestureDetector(
                   onTap: (){
-                   context.go("/${RouteNames.loginPage}");
+                   context.go("/${RouteNames.frontScreen}");
                   },
-                    child: const Image(image: AssetImage('Images/Splash_screen_logo.png'))),
+                    child: const Image(image: AssetImage('Images/logo.png'))),
                 Column(
                   children: [
                     Padding(

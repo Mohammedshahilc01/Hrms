@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hrm/Controller/Widget/TextWidget.dart';
 
-class LeaveStatusWidgetData extends StatelessWidget {
+class CustomLeaveStatus extends StatelessWidget {
   Icon? icon;
   String? leave;
   int? days;
   Color? color;
   Color? textColor;
 
-  LeaveStatusWidgetData(
+  CustomLeaveStatus(
       {super.key,
       this.icon,
       this.leave,

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrm/Controller/Route_names/Route_names.dart';
 
-class BottomNavigationWidgetData extends StatelessWidget {
-  const BottomNavigationWidgetData({super.key});
+class CustomBottomNavigationBar extends StatelessWidget {
+  const CustomBottomNavigationBar({super.key});
 
   @override
   Widget build(BuildContext context) {

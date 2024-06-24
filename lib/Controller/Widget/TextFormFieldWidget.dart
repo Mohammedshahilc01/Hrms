@@ -11,21 +11,19 @@ class TextFormFieldData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: TextFormField(
-        decoration: InputDecoration(
-            prefixIcon: prefixIcon,
-            hintText: hintText,
-            hintStyle: const TextStyle(fontSize: 13,color: Colors.grey,fontWeight: FontWeight.normal),
-            fillColor: fillColor?.withOpacity(0.10),
-            filled: true,
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(10),
-              // borderSide: const BorderSide(color: Colors.black12)
-            )),
-      ),
+    return TextFormField(
+      decoration: InputDecoration(
+          contentPadding: const EdgeInsets.fromLTRB(20, 10, 10, 0),
+          prefixIcon: prefixIcon,
+          hintText: hintText,
+          hintStyle: const TextStyle(fontSize: 13,color: Colors.grey,fontWeight: FontWeight.normal),
+          fillColor: fillColor,
+          filled: true,
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(30),
+            // borderSide: const BorderSide(color: Colors.black12)
+          )),
     );
   }
 }
