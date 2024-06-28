@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 
 import '../../Controller/Color_list/Color_list.dart';
+import '../../Controller/String_list/String_list.dart';
 import '../../Controller/Widget/TextWidget.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
@@ -22,11 +23,11 @@ class _FrontScreenState extends State<FrontScreen> {
     "Images/splash 4.png"
   ];
   int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor:ColorList.loginInBoxColor,
-
+      statusBarColor: ColorList.loginInBoxColor,
     ));
     return WillPopScope(
       onWillPop: () async => false,
@@ -44,9 +45,11 @@ class _FrontScreenState extends State<FrontScreen> {
                   elevation: 0.0,
                   leading: Container(),
                   actions: [
-                    IconButton(onPressed: (){
-                      context.go('/loginPage');
-                    }, icon: const Icon(Icons.close))
+                    IconButton(
+                        onPressed: () {
+                          context.go('/loginPage');
+                        },
+                        icon: const Icon(Icons.close))
                   ],
                 ),
               ),
@@ -79,7 +82,7 @@ class _FrontScreenState extends State<FrontScreen> {
                     ),
                   )),
               Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CarouselSlider(
                     options: CarouselOptions(
@@ -90,14 +93,14 @@ class _FrontScreenState extends State<FrontScreen> {
                       onPageChanged: (index, reason) {
                         setState(() {
                           currentIndex = index;
-                          if (currentIndex == 2) {
-                            Future.delayed(
-                              const Duration(seconds: 1),
-                              () {
-                                return context.go('/loginPage');
-                              },
-                            );
-                          }
+                          // if (currentIndex == 2) {
+                          //   Future.delayed(
+                          //     const Duration(seconds: 1),
+                          //     () {
+                          //       return context.go('/loginPage');
+                          //     },
+                          //   );
+                          // }
                         });
                       },
                     ),
@@ -120,6 +123,26 @@ class _FrontScreenState extends State<FrontScreen> {
                   ),
                 ],
               ),
+              currentIndex == 2
+                  ? Padding(
+                      padding:
+                          const EdgeInsets.only(left: 20, right: 20, top: 20),
+                      child: GestureDetector(
+                        onTap: () => context.go('/loginPage'),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: ColorList.backgroundColor),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Center(
+                                  child: TextData(
+                                name: 'Get Starts',
+                                color: Colors.white,
+                              )),
+                            )),
+                      ))
+                  : const SizedBox(),
             ],
           ),
         ),

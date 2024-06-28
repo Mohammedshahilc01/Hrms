@@ -3,7 +3,7 @@ class StringList {
   static String welcome = "Welcome back";
   static String orLoginWith = "or login with";
   static String dontHaveAccount = "dont't have an Account?";
-  static String singToContinue = "Hello there Sing in to Continue";
+  static String singToContinue = "Hello there Sign in to Continue";
   static String agreeWithTerms = "I agree with Terms & Conditions";
   static String keelInfoSolution = "Keel Info Solution PVT";
   static String copyright = "COPYRIGHT";
@@ -11,7 +11,7 @@ class StringList {
   static String logInto = "Log into";
   static String login = "Login";
   static String submit = "Submit";
-  static String singUp = " Sing up";
+  static String singUp = " Sign up";
   static String yourAccount = "your account";
   static String forgotPassword = "Forgot Password";
   static String passwordRecovery = "Password Recovery";
@@ -34,6 +34,6 @@ class StringList {
 }
 
 class PageNames{
-  static String signInPage="Sing in";
+  static String signInPage="Sign in";
   static String forgotPasswordPage="Forgot Password";
 }

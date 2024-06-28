@@ -1,9 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:hrm/Controller/GlobalVariable/GlobalVariable.dart';
 import 'package:hrm/Controller/Widget/TextWidget.dart';
 class CustomPhoto extends StatelessWidget {
   
-  String? imgUrl;
+  Image? imgUrl;
   String? name;
   String? position;
   CustomPhoto({super.key, this.imgUrl,this.name,this.position});
@@ -26,8 +28,7 @@ class CustomPhoto extends StatelessWidget {
                       color: Colors.deepOrange,
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                          image: NetworkImage(
-                              'https://img.freepik.com/free-photo/medium-shot-smiley-man-posing_23-2149915892.jpg'),
+                          image:AssetImage("Images/profileImage.jpg"),
                           fit: BoxFit.cover)),
                 ),
               ),
@@ -38,11 +39,11 @@ class CustomPhoto extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextData(
-                    name: "Welcome Muhammed",
+                    name: name,
                     fontWeight: FontWeight.bold,
                   ),
                   TextData(
-                    name:"Flutter Developer",
+                    name:position,
                   )
                 ],
               )

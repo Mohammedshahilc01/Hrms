@@ -51,8 +51,8 @@ class UpdateProfileScreen extends StatelessWidget {
                               color: Colors.white,
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                  image: NetworkImage(
-                                      'https://img.freepik.com/free-photo/medium-shot-smiley-man-posing_23-2149915892.jpg'),
+                                  image: AssetImage(
+                                      'Images/profileImage.jpg'),
                                   fit: BoxFit.cover)),
                         ),
                         TextData(

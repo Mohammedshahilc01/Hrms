@@ -25,12 +25,17 @@ if (flutterVersionName == null) {
 
 android {
     namespace = "com.example.hrm"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 34
     ndkVersion = flutter.ndkVersion
+    defaultConfig {
+        multiDexEnabled true
+    }
+
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
 
     defaultConfig {
@@ -38,7 +43,7 @@ android {
         applicationId = "com.example.hrm"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdk = flutter.minSdkVersion
+        minSdk = 19
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
@@ -51,6 +56,9 @@ android {
             signingConfig = signingConfigs.debug
         }
     }
+}
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
 }
 
 flutter {

@@ -9,4 +9,5 @@ class RouteNames{
   static String frontScreen="FrontScreen";
   static String leaveRequestScreen="LeaveRequestScreen";
   static String newLeavePage="NewLeavePage";
+  static String bottomNavigation="BottomNavigation";
 }

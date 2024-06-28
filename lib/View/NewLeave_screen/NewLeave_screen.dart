@@ -27,10 +27,11 @@ class _NewLeavePageState extends State<NewLeavePage> {
       firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     );
-    if (picked != null && picked != _selectedFromDate)
+    if (picked != null && picked != _selectedFromDate) {
       setState(() {
         _selectedFromDate = picked;
       });
+    }
   }
   Future<void> _selectToDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -39,10 +40,11 @@ class _NewLeavePageState extends State<NewLeavePage> {
       firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     );
-    if (picked != null && picked != _selectedToDate)
+    if (picked != null && picked != _selectedToDate) {
       setState(() {
         _selectedToDate = picked;
       });
+    }
   }
 
 
@@ -76,7 +78,7 @@ class _NewLeavePageState extends State<NewLeavePage> {
                         borderRadius: BorderRadius.circular(10)),
                     child: GestureDetector(
                       onTap: (){
-                        context.go('/homePage');
+                        context.go('/LeaveRequestScreen');
                       },
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
@@ -331,18 +333,21 @@ class _NewLeavePageState extends State<NewLeavePage> {
                   right: 20,
                 ),
                 child: SafeArea(
-                  child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: ColorList.backgroundColor),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Center(
-                            child: TextData(
-                              name: StringList.submit,
-                              color: Colors.white,
-                            )),
-                      )),
+                  child: GestureDetector(
+                    onTap: ()=>context.go('/LeaveRequestScreen'),
+                    child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: ColorList.backgroundColor),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Center(
+                              child: TextData(
+                                name: StringList.submit,
+                                color: Colors.white,
+                              )),
+                        )),
+                  ),
                 )),
             SizedBox(height: 15,),
           ],

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hrm/Controller/Widget/TextWidget.dart';
 
 import '../../Controller/Color_list/Color_list.dart';
+import '../Home_screen/Components/bottomNavigationWidget.dart';
 
 class LeaveRequestScreen extends StatefulWidget {
   const LeaveRequestScreen({super.key});
@@ -30,20 +31,23 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(10)),
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.arrow_back),
+                  child: GestureDetector(
+                    onTap: () => context.go('/homePage'),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.arrow_back),
+                      ),
                     ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       context.go('/NewLeavePage');
                     },
                     child: Container(
@@ -79,16 +83,20 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: TextData(name: 'December 12',fontSize: 13,color: Colors.grey,),
+                        padding: const EdgeInsets.only(left: 15,bottom: 5.0),
+                        child: TextData(
+                          name: 'December 12',
+                          fontSize: 13,
+                          color: Colors.grey,
+                        ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),color: Colors.white,
-                            border: Border.all(color: Colors.black12)
-                          ),
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              border: Border.all(color: Colors.yellow)),
                           child: Column(
                             children: <Widget>[
                               Row(
@@ -96,25 +104,30 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                                   Expanded(
                                     flex: 3,
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
+                                      padding: const EdgeInsets.only(
+                                          left: 15, bottom: 10, top: 10),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.stretch,
                                         children: [
                                           TextData(
                                             name: 'Half Day Application',
-                                            fontSize: 13,
+                                            fontSize: 15,
                                             color: Colors.grey,
+                                            fontWeight: FontWeight.w300,
                                           ),
+                                          const SizedBox(height: 5,),
                                           TextData(
                                             name: 'Wed, 16 Dec',
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,
                                           ),
+                                          const SizedBox(height: 5,),
                                           TextData(
-                                            name: 'Casual',
-                                            fontSize: 15,
-                                            color: Colors.green,
+                                            name: 'Sick Leave',
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.red,
                                           ),
                                         ],
                                       ),
@@ -133,19 +146,21 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                                             Container(
                                                 decoration: BoxDecoration(
                                                     borderRadius:
-                                                        BorderRadius.circular(5),
-                                                    color: Colors.yellow[100]),
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color: Colors.yellow),
                                                 child: Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 8.0,
-                                                      right: 8.0,
-                                                      top: 3,
-                                                      bottom: 3),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8.0,
+                                                          right: 8.0,
+                                                          top: 3,
+                                                          bottom: 3),
                                                   child: Center(
                                                     child: TextData(
                                                       name: 'Awaiting',
                                                       fontSize: 13,
-                                                      color: Colors.red[300],
+                                                      color: Colors.yellow.shade50,
                                                     ),
                                                   ),
                                                 )),
@@ -153,246 +168,17 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                                               height: 10,
                                             ),
                                             GestureDetector(
-                                              onTap: (){
-                                                setState(() {
-                                                  isExpandedAwaiting = !isExpandedAwaiting;
-                                                });
-                                              },
-                                                child: Icon(isExpandedAwaiting ? Icons.expand_less : Icons.expand_more,)),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              AnimatedContainer(
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut,
-                                height: isExpandedAwaiting ? 50 : 0,
-                                child:  SingleChildScrollView(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        TextData(
-                                          name: 'Personal Issue',
-                                        ),
-                                        Icon(Icons.download)
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: TextData(name: 'December 12',fontSize: 13,color: Colors.grey,),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),color: Colors.white,
-                              border: Border.all(color: Colors.black12)
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                children: [
-                                  Expanded(
-                                    flex: 3,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                        children: [
-                                          TextData(
-                                            name: 'Half Day Application',
-                                            fontSize: 13,
-                                            color: Colors.grey,
-                                          ),
-                                          TextData(
-                                            name: 'Wed, 16 Dec',
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          TextData(
-                                            name: 'Casual',
-                                            fontSize: 15,
-                                            color: Colors.green,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(right: 10),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 8.0, bottom: 8.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                          children: [
-                                            Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius.circular(5),
-                                                    color: Colors.deepOrange[100]),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 8.0,
-                                                      right: 8.0,
-                                                      top: 3,
-                                                      bottom: 3),
-                                                  child: Center(
-                                                    child: TextData(
-                                                      name: 'Pending',
-                                                      fontSize: 13,
-                                                      color: Colors.deepOrange[300],
-                                                    ),
-                                                  ),
-                                                )),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            GestureDetector(
-                                                onTap: (){
+                                                onTap: () {
                                                   setState(() {
-                                                    isExpandedPending = !isExpandedPending;
+                                                    isExpandedAwaiting =
+                                                        !isExpandedAwaiting;
                                                   });
                                                 },
-                                                child: Icon(isExpandedPending ? Icons.expand_less : Icons.expand_more,)),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              AnimatedContainer(
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut,
-                                height: isExpandedPending ? 50 : 0,
-                                child:  SingleChildScrollView(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        TextData(
-                                          name: 'Personal Issue',
-                                        ),
-                                        Icon(Icons.download)
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: TextData(name: 'December 12',fontSize: 13,color: Colors.grey,),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),color: Colors.white,
-                              border: Border.all(color: Colors.black12)
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                children: [
-                                  Expanded(
-                                    flex: 3,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                        children: [
-                                          TextData(
-                                            name: 'Half Day Application',
-                                            fontSize: 13,
-                                            color: Colors.grey,
-                                          ),
-                                          TextData(
-                                            name: 'Wed, 16 Dec',
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          TextData(
-                                            name: 'Casual',
-                                            fontSize: 15,
-                                            color: Colors.green,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(right: 10),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 8.0, bottom: 8.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                          children: [
-                                            Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius.circular(5),
-                                                    color: Colors.green[100]),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 8.0,
-                                                      right: 8.0,
-                                                      top: 3,
-                                                      bottom: 3),
-                                                  child: Center(
-                                                    child: TextData(
-                                                      name: 'Approved',
-                                                      fontSize: 13,
-                                                      color: Colors.green[300],
-                                                    ),
-                                                  ),
+                                                child: Icon(
+                                                  isExpandedAwaiting
+                                                      ? Icons.expand_less
+                                                      : Icons.expand_more,
                                                 )),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            GestureDetector(
-                                                onTap: (){
-                                                  setState(() {
-                                                    isExpandedApproved = !isExpandedApproved;
-                                                  });
-                                                },
-                                                child: Icon(isExpandedApproved ? Icons.expand_less : Icons.expand_more,)),
                                           ],
                                         ),
                                       ),
@@ -403,17 +189,24 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                               AnimatedContainer(
                                 duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeInOut,
-                                height: isExpandedApproved ? 50 : 0,
-                                child:  SingleChildScrollView(
+                                height: isExpandedAwaiting ? 35 : 0,
+                                child: SingleChildScrollView(
                                   child: Padding(
-                                    padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                                    padding: const EdgeInsets.only(
+                                        left: 15, right: 8.0),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         TextData(
                                           name: 'Personal Issue',
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
                                         ),
-                                        Icon(Icons.download)
+                                        Icon(
+                                          Icons.download,
+                                          color: ColorList.backgroundColor,
+                                        )
                                       ],
                                     ),
                                   ),
@@ -425,21 +218,27 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: TextData(name: 'December 12',fontSize: 13,color: Colors.grey,),
+                        padding: const EdgeInsets.only(left: 15,bottom: 5.0),
+                        child: TextData(
+                          name: 'December 16',
+                          fontSize: 13,
+                          color: Colors.grey,
+                        ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),color: Colors.white,
-                              border: Border.all(color: Colors.black12)
-                          ),
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              border: Border.all(color: Colors.red)),
                           child: Column(
                             children: <Widget>[
                               Row(
@@ -447,25 +246,30 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                                   Expanded(
                                     flex: 3,
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
+                                      padding: const EdgeInsets.only(
+                                          left: 15, bottom: 10, top: 10),
                                       child: Column(
                                         crossAxisAlignment:
                                         CrossAxisAlignment.stretch,
                                         children: [
                                           TextData(
-                                            name: 'Half Day Application',
-                                            fontSize: 13,
+                                            name: 'Full Day Application',
+                                            fontSize: 15,
                                             color: Colors.grey,
+                                            fontWeight: FontWeight.w300,
                                           ),
+                                          const SizedBox(height: 5,),
                                           TextData(
                                             name: 'Wed, 16 Dec',
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,
                                           ),
+                                          const SizedBox(height: 5,),
                                           TextData(
-                                            name: 'Casual',
-                                            fontSize: 15,
-                                            color: Colors.green,
+                                            name: 'Sick Leave',
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.red,
                                           ),
                                         ],
                                       ),
@@ -484,10 +288,12 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                                             Container(
                                                 decoration: BoxDecoration(
                                                     borderRadius:
-                                                    BorderRadius.circular(5),
-                                                    color: Colors.red[100]),
+                                                    BorderRadius.circular(
+                                                        5),
+                                                    color: Colors.red),
                                                 child: Padding(
-                                                  padding: const EdgeInsets.only(
+                                                  padding:
+                                                  const EdgeInsets.only(
                                                       left: 8.0,
                                                       right: 8.0,
                                                       top: 3,
@@ -496,7 +302,7 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                                                     child: TextData(
                                                       name: 'Declined',
                                                       fontSize: 13,
-                                                      color: Colors.red[300],
+                                                      color: Colors.red.shade50,
                                                     ),
                                                   ),
                                                 )),
@@ -504,12 +310,17 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                                               height: 10,
                                             ),
                                             GestureDetector(
-                                                onTap: (){
+                                                onTap: () {
                                                   setState(() {
-                                                    isExpandedDeclined = !isExpandedDeclined;
+                                                    isExpandedDeclined =
+                                                    !isExpandedDeclined;
                                                   });
                                                 },
-                                                child: Icon(isExpandedDeclined ? Icons.expand_less : Icons.expand_more,)),
+                                                child: Icon(
+                                                  isExpandedDeclined
+                                                      ? Icons.expand_less
+                                                      : Icons.expand_more,
+                                                )),
                                           ],
                                         ),
                                       ),
@@ -520,17 +331,24 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                               AnimatedContainer(
                                 duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeInOut,
-                                height: isExpandedDeclined ? 50 : 0,
-                                child:  SingleChildScrollView(
+                                height: isExpandedDeclined ? 35 : 0,
+                                child: SingleChildScrollView(
                                   child: Padding(
-                                    padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                                    padding: const EdgeInsets.only(
+                                        left: 15, right: 8.0),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         TextData(
                                           name: 'Personal Issue',
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
                                         ),
-                                        Icon(Icons.download)
+                                        Icon(
+                                          Icons.download,
+                                          color: ColorList.backgroundColor,
+                                        )
                                       ],
                                     ),
                                   ),
@@ -542,12 +360,158 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                       ),
                     ],
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15,bottom: 5.0),
+                        child: TextData(
+                          name: 'December 16',
+                          fontSize: 13,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              border: Border.all(color: Colors.green)),
+                          child: Column(
+                            children: <Widget>[
+                              Row(
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 15, bottom: 10, top: 10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                        children: [
+                                          TextData(
+                                            name: '3 Days Application',
+                                            fontSize: 15,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                          const SizedBox(height: 5,),
+                                          TextData(
+                                            name: 'Wed, 20 Dec',
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          const SizedBox(height: 5,),
+                                          TextData(
+                                            name: 'Privilege Leave',
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.red,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8.0, bottom: 8.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                          children: [
+                                            Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                        5),
+                                                    color: Colors.green),
+                                                child: Padding(
+                                                  padding:
+                                                  const EdgeInsets.only(
+                                                      left: 8.0,
+                                                      right: 8.0,
+                                                      top: 3,
+                                                      bottom: 3),
+                                                  child: Center(
+                                                    child: TextData(
+                                                      name: 'Approved',
+                                                      fontSize: 13,
+                                                      color: Colors.green.shade50,
+                                                    ),
+                                                  ),
+                                                )),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    isExpandedApproved =
+                                                    !isExpandedApproved;
+                                                  });
+                                                },
+                                                child: Icon(
+                                                  isExpandedApproved
+                                                      ? Icons.expand_less
+                                                      : Icons.expand_more,
+                                                )),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                                height: isExpandedApproved ? 35 : 0,
+                                child: SingleChildScrollView(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, right: 8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        TextData(
+                                          name: 'Personal Issue',
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        Icon(
+                                          Icons.download,
+                                          color: ColorList.backgroundColor,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                 ],
               ),
             )
           ],
         ),
       ),
+      // bottomNavigationBar:const CustomBottomNavigationBar(),
     );
   }
 }

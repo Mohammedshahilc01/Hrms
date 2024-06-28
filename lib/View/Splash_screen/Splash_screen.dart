@@ -2,25 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hrm/Controller/Color_list/Color_list.dart';
+import 'package:hrm/Controller/GlobalVariable/GlobalVariable.dart';
 import 'package:hrm/Controller/Route_names/Route_names.dart';
 import 'package:hrm/Controller/String_list/String_list.dart';
 import 'package:hrm/Controller/Widget/TextWidget.dart';
 import 'package:hrm/View/Login_screen/Login_screen.dart';
 
+import '../../Controller/Secure_Storage/Components/Secure_Storage_keys.dart';
+import '../../Controller/Secure_Storage/Secure_storage.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
-
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
-class _SplashScreenState extends State<SplashScreen> {
 
+class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 2),() => context.go("/FrontScreen"),);
+    pageView();
     super.initState();
   }
+  Future<void> pageView() async {
+    var token=(await SecureStorage.storage.read(key: SecureStorageKeys.token));
+    if (token != null && token.isNotEmpty){
+      Future.delayed(
+        const Duration(seconds: 2),
+            () => context.go("/${RouteNames.bottomNavigation}"),
+      );
+    }
+    else{
+      Future.delayed(
+        const Duration(seconds: 2),
+            () => context.go("/FrontScreen"),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -35,9 +54,9 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 const SizedBox(),
                 GestureDetector(
-                  onTap: (){
-                   context.go("/${RouteNames.frontScreen}");
-                  },
+                    onTap: () {
+                      context.go("/${RouteNames.frontScreen}");
+                    },
                     child: const Image(image: AssetImage('Images/logo.png'))),
                 Column(
                   children: [
@@ -69,7 +88,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       fontWeight: FontWeight.normal,
                     ),
                     const SafeArea(
-                      child:  SizedBox(
+                      child: SizedBox(
                         height: 10,
                       ),
                     ),

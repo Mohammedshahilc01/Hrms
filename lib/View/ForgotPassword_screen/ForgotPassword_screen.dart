@@ -41,7 +41,9 @@ class ForgotpasswordScreen extends StatelessWidget {
                             fontSize: 16,
                           ),
                           IconButton(
-                              onPressed: () {}, icon: const Icon(Icons.close))
+                              onPressed: () {
+                                context.go('/LoginPage');
+                              }, icon: const Icon(Icons.close))
                         ],
                       ),
                     ),
@@ -105,7 +107,9 @@ class ForgotpasswordScreen extends StatelessWidget {
                         padding:
                         const EdgeInsets.only(left: 20, right: 20, top: 20),
                         child: GestureDetector(
-                          onTap: ()=>context.go('/HomePage'),
+                          onTap: () {
+                            // context.go('/HomePage');
+                          },
                           child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),
@@ -114,7 +118,7 @@ class ForgotpasswordScreen extends StatelessWidget {
                                 padding: const EdgeInsets.all(15),
                                 child: Center(
                                     child: TextData(
-                                      name: StringList.login,
+                                      name: StringList.submit,
                                       color: Colors.white,
                                     )),
                               )),
