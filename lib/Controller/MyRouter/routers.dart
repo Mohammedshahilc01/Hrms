@@ -7,6 +7,7 @@ import 'package:hrm/View/ForgotPassword_screen/ForgotPassword_screen.dart';
 import 'package:hrm/View/Home_screen/Home_screen.dart';
 import 'package:hrm/View/Login_screen/Login_screen.dart';
 import 'package:hrm/View/Splash_screen/Splash_screen.dart';
+import 'package:hrm/View/timerTest.dart';
 
 import '../../View/Front_screen/Front_screen.dart';
 import '../../View/Home_screen/Components/bottomNavigationWidget.dart';
@@ -14,19 +15,20 @@ import '../../View/LeaveRequest_screen/LeaveRequestScreen.dart';
 import '../../View/NewLeave_screen/NewLeave_screen.dart';
 import '../../View/ProfileUpdate_screen/UpdateProfile_screen.dart';
 import '../../View/test.dart';
+import '../../View/testData.dart';
 import '../Secure_Storage/Secure_storage.dart';
 import '../Widget/BottomNavigationWidget.dart';
 
 
 class MyRouter {
   static GoRouter router = GoRouter(
-    routes: <RouteBase>[
+    routes: [
       GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
           return  const SplashScreen();
         },
-        routes: <RouteBase>[
+        routes: [
           GoRoute(
             path: RouteNames.bottomNavigation,
             builder: (BuildContext context, GoRouterState state) {
@@ -74,7 +76,19 @@ class MyRouter {
             builder: (BuildContext context, state) {
               return  const NewLeavePage();
             },
-          )
+          ),
+          // GoRoute(
+          //   path: RouteNames.timerScreen,
+          //   builder: (BuildContext context, state) {
+          //     return  const TimerScreen();
+          //   },
+          // ),
+          // GoRoute(
+          //   path: RouteNames.timerTest,
+          //   builder: (BuildContext context, state) {
+          //     return  const TimerTest();
+          //   },
+          // )
           // GoRoute(
           //   path: RouteNames.myHomePage,
           //   builder: (BuildContext context, GoRouterState state) {

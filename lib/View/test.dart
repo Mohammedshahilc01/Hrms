@@ -1,186 +1,133 @@
+// import 'dart:async';
 // import 'package:flutter/material.dart';
-// import 'package:graphql_flutter/graphql_flutter.dart';
-//
-// import '../main.dart';
-//
-// class MyHomePage extends StatefulWidget {
-//   @override
-//   _MyHomePageState createState() => _MyHomePageState();
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:provider/provider.dart';
+// FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+// void main() {
+//   runApp(MyApp());
 // }
 //
-// class _MyHomePageState extends State<MyHomePage> {
-//   TextEditingController emailController = TextEditingController();
-//   TextEditingController passwordController = TextEditingController();
-//
-//   void loginMutation() async {
-//     final MutationOptions options = MutationOptions(
-//       document: gql('''
-//         mutation Login(\$email: String!, \$password: String!) {
-//           tokenAuth(email: \$email, password: \$password) {
-//             success
-//             errors
-//             token
-//             refreshToken
-//             user {
-//               id
-//               email
-//               username
-//               firstName
-//               lastName
-//               teamleader
-//               empid
-//               role
-//               department
-//               designation
-//               address
-//               login
-//               logout
-//               isActive
-//             }
-//           }
-//         }
-//       '''),
-//       variables: {
-//         'email': emailController.text,
-//         'password': passwordController.text,
-//       },
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return ChangeNotifierProvider(
+//       create: (_) => TimerProvider(),
+//       child: MaterialApp(
+//         home: TimerScreen(),
+//       ),
 //     );
-//
-//     final QueryResult result = await client.value.mutate(options);
-//     print('-------------------------------');
-//     print(result.data);
-//     print('-------------------------------');
-//     if (result.hasException) {
-//       print('Mutation error: ${result.exception.toString()}');
-//       // Handle error, e.g., show error message to user
-//     } else {
-//       final dynamic responseData = result.data!['tokenAuth'];
-//       print('Mutation completed: $responseData');
-//       // Handle successful login, update UI or navigate to next screen
-//     }
 //   }
+// }
+//
+// class TimerScreen extends StatefulWidget {
+//   @override
+//   _TimerScreenState createState() => _TimerScreenState();
+// }
+//
+// class _TimerScreenState extends State<TimerScreen> {
+//   final _formKey = GlobalKey<FormState>();
+//   final _hoursController = TextEditingController();
+//   final _minutesController = TextEditingController();
+//   final _secondsController = TextEditingController();
 //
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Login Example'),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             TextField(
-//               controller: emailController,
-//               decoration: InputDecoration(
-//                 labelText: 'Email',
+//       appBar: AppBar(title: Text('Timer App')),
+//       body: Padding(
+//         padding: const EdgeInsets.all(16.0),
+//         child: Form(
+//           key: _formKey,
+//           child: Column(
+//             children: [
+//               TextFormField(
+//                 controller: _hoursController,
+//                 decoration: InputDecoration(labelText: 'Hours'),
+//                 keyboardType: TextInputType.number,
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Please enter hours';
+//                   }
+//                   return null;
+//                 },
 //               ),
-//             ),
-//             TextField(
-//               controller: passwordController,
-//               decoration: InputDecoration(
-//                 labelText: 'Password',
+//               TextFormField(
+//                 controller: _minutesController,
+//                 decoration: InputDecoration(labelText: 'Minutes'),
+//                 keyboardType: TextInputType.number,
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Please enter minutes';
+//                   }
+//                   return null;
+//                 },
 //               ),
-//               obscureText: true,
-//             ),
-//             SizedBox(height: 20),
-//             ElevatedButton(
-//               onPressed: loginMutation,
-//               child: Text('Login'),
-//             ),
-//           ],
+//               TextFormField(
+//                 controller: _secondsController,
+//                 decoration: const InputDecoration(labelText: 'Seconds'),
+//                 keyboardType: TextInputType.number,
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Please enter seconds';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               const SizedBox(height: 20),
+//               ElevatedButton(
+//                 onPressed: () {
+//                   if (_formKey.currentState!.validate()) {
+//                     final hours = int.parse(_hoursController.text);
+//                     final minutes = int.parse(_minutesController.text);
+//                     final seconds = int.parse(_secondsController.text);
+//                     DateTime now = DateTime.now();
+//                     print('---------------------------------');
+//                     print('${now.hour}:${now.minute}:${now.second}');
+//                     print('${now.hour * 3600 + now.minute* 60 + now.second}');
+//                     final totalSecond2=now.hour * 3600 + now.minute* 60 + now.second;
+//                     final totalSeconds = hours * 3600 + minutes * 60 + seconds;
+//                     print('Total ${totalSecond2-totalSeconds}');
+//                     print('---------------------------------');
+//
+//                     Provider.of<TimerProvider>(context, listen: false).startTimer(totalSecond2-totalSeconds);
+//                   }
+//                 },
+//                 child: Text('Start Timer'),
+//               ),
+//               const SizedBox(height: 20),
+//               Consumer<TimerProvider>(
+//                 builder: (context, timerProvider, child) {
+//                   final duration = Duration(seconds: timerProvider.remainingSeconds);
+//                   final hours = duration.inHours.toString().padLeft(2, '0');
+//                   final minutes = (duration.inMinutes % 60).toString().padLeft(2, '0');
+//                   final seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
+//                   return Text('$hours:$minutes:$seconds', style: TextStyle(fontSize: 48));
+//                 },
+//               ),
+//             ],
+//           ),
 //         ),
 //       ),
 //     );
 //   }
 // }
-
-
-
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  void _showLogoutDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Logout'),
-          content: Text('Are you sure you want to log out?'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-                _logout(context); // Handle logout
-              },
-              child: Text('Logout'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _logout(BuildContext context) {
-    // Handle the logout logic here
-    // For example, navigate to the login screen
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => LoginPage()),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home Page'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () => _showLogoutDialog(context),
-          child: Text('Logout'),
-        ),
-      ),
-    );
-  }
-}
-
-class LoginPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Login Page'),
-      ),
-      body: Center(
-        child: Text('Login Page Content'),
-      ),
-    );
-  }
-}
-
-
-
-
-
-
-
+//
+// class TimerProvider with ChangeNotifier {
+//   int _remainingSeconds = 0;
+//   Timer? _timer;
+//
+//   int get remainingSeconds => _remainingSeconds;
+//
+//   void startTimer(int seconds) {
+//     _remainingSeconds = seconds;
+//     _timer?.cancel();
+//     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+//       if (_remainingSeconds > 0) {
+//         _remainingSeconds++;
+//         notifyListeners();
+//       } else {
+//         _timer?.cancel();
+//       }
+//     });
+//   }
+// }

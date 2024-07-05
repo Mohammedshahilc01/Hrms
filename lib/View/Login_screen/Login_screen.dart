@@ -273,7 +273,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(right: 20, top: 20),
                         child: GestureDetector(
-                          onTap: (){context.go('/ForgotPassword');},
+                          onTap: (){context.go('/${RouteNames.forgotPassword}');},
                             child: TextData(
                           name: StringList.forgotPassword,
                           color: ColorList.backgroundColor,
@@ -284,9 +284,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           const EdgeInsets.only(left: 20, right: 20, top: 20),
                       child: InkWell(
                         onTap: () {
-                          print(GlobalVariable.formKey.currentState?.validate());
-                          print(GlobalVariable.formKey.currentState?.validate());
-                          print(GlobalVariable.formKey.currentState?.validate());
                           if (GlobalVariable.formKey.currentState!.validate()) {
                             providerData.login(_controllerEmail.text.trim(),_controllerPassword.text.trim(),context);
                             // login();

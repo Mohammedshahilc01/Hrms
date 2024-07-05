@@ -12,9 +12,8 @@ import 'package:hrm/View/Home_screen/Components/CheckIn_widget.dart';
 import 'package:hrm/View/Home_screen/Components/Drawer_widget.dart';
 import 'package:hrm/View/Home_screen/Components/LeaveStatus_widget.dart';
 import 'package:hrm/View/Home_screen/Components/Photo_widget.dart';
-import 'package:hrm/View/Home_screen/Components/bottomNavigationWidget.dart';
-import 'package:hrm/Model/Local_notification.dart';
 import 'package:provider/provider.dart';
+
 
 import '../../Model/UserLogin_model.dart';
 import '../../main.dart';
@@ -44,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Provider.of<ProviderNotifier>(context).getDetails();
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -122,41 +122,47 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontSize: 16,
                                   )),
                               CustomAnnouncement(
-                                color: Colors.blue,
+                                color: Colors.blue[100],
                                 title: 'Upload Documents',
                                 data:
                                 'Upload your last degree documents or send to Hr email idUpload your last degree documents or send to Hr email id',
                               ),
                               CustomAnnouncement(
-                                color: Colors.orangeAccent,
+                                color: Colors.orangeAccent[100],
                                 title: 'Meeting',
                                 data: 'Meeting Scheduled on Monday',
                               ),
                               CustomAnnouncement(
-                                color: Colors.greenAccent,
+                                color: Colors.greenAccent[100],
                                 title: 'Upload Documents',
                                 data:
                                 'Upload your last degree documents or send to Hr email idUpload your last degree documents or send to Hr email id',
                               ),
                               CustomAnnouncement(
-                                color: Colors.amberAccent,
+                                color: Colors.amberAccent[100],
                                 title: 'Upload Documents',
                                 data:
                                 'Upload your last degree documents or send to Hr email idUpload your last degree documents or send to Hr email id',
                               ),
                               CustomAnnouncement(
-                                color: Colors.orangeAccent,
+                                color: Colors.orangeAccent[100],
                                 title: 'Meeting',
                                 data: 'Meeting Scheduled on Monday',
                               ),
                               CustomAnnouncement(
-                                color: Colors.greenAccent,
+                                color: Colors.greenAccent[100],
+                                title: 'Upload Documents',
+                                data:
+                                'Upload your last degree documents or send to Hr email idUpload your last degree documents or send to Hr email id',
+                              ),
+                              CustomAnnouncement(
+                                color: Colors.greenAccent[100],
                                 title: 'Upload Documents',
                                 data:
                                 'Upload your last degree documents or send to Hr email idUpload your last degree documents or send to Hr email id',
                               ),
                               const SizedBox(
-                                height: 10,
+                                height: 80,
                               ),
                             ],
                           ),

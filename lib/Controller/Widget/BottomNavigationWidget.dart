@@ -12,8 +12,18 @@ class BottomNavigationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final tabIndex=Provider.of<ProviderNotifier>(context);
     return Scaffold(
-      body:PageList.tabList.elementAt(tabIndex.selectedIndex),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
+      body:Stack(
+        children: [
+          PageList.tabList.elementAt(tabIndex.selectedIndex),
+          const Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Center(child: CustomBottomNavigationBar()),
+            ],
+          )
+        ],
+      ),
+      // bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }

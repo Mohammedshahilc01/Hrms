@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 
 import '../../Controller/Color_list/Color_list.dart';
+import '../../Controller/Route_names/Route_names.dart';
 import '../../Controller/String_list/String_list.dart';
 import '../../Controller/Widget/TextWidget.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -47,7 +48,7 @@ class _FrontScreenState extends State<FrontScreen> {
                   actions: [
                     IconButton(
                         onPressed: () {
-                          context.go('/loginPage');
+                          context.go('/${RouteNames.loginPage}');
                         },
                         icon: const Icon(Icons.close))
                   ],
@@ -93,14 +94,6 @@ class _FrontScreenState extends State<FrontScreen> {
                       onPageChanged: (index, reason) {
                         setState(() {
                           currentIndex = index;
-                          // if (currentIndex == 2) {
-                          //   Future.delayed(
-                          //     const Duration(seconds: 1),
-                          //     () {
-                          //       return context.go('/loginPage');
-                          //     },
-                          //   );
-                          // }
                         });
                       },
                     ),
@@ -128,7 +121,7 @@ class _FrontScreenState extends State<FrontScreen> {
                       padding:
                           const EdgeInsets.only(left: 20, right: 20, top: 20),
                       child: GestureDetector(
-                        onTap: () => context.go('/loginPage'),
+                        onTap: () => context.go('/${RouteNames.loginPage}'),
                         child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),

@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
     else{
       Future.delayed(
         const Duration(seconds: 2),
-            () => context.go("/FrontScreen"),
+            () => context.go("/${RouteNames.frontScreen}"),
       );
     }
   }

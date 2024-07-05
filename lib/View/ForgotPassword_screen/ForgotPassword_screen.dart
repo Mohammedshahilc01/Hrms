@@ -4,6 +4,8 @@ import 'package:hrm/Controller/Color_list/Color_list.dart';
 import 'package:hrm/Controller/String_list/String_list.dart';
 import 'package:hrm/Controller/Widget/TextFormFieldWidget.dart';
 import 'package:hrm/Controller/Widget/TextWidget.dart';
+
+import '../../Controller/Route_names/Route_names.dart';
 class ForgotpasswordScreen extends StatelessWidget {
   const ForgotpasswordScreen({super.key});
 
@@ -42,7 +44,7 @@ class ForgotpasswordScreen extends StatelessWidget {
                           ),
                           IconButton(
                               onPressed: () {
-                                context.go('/LoginPage');
+                                context.go('/${RouteNames.loginPage}');
                               }, icon: const Icon(Icons.close))
                         ],
                       ),

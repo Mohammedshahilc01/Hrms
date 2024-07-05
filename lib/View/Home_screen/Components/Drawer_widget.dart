@@ -6,9 +6,11 @@ import 'package:go_router/go_router.dart';
 import 'package:hrm/Controller/Color_list/Color_list.dart';
 import 'package:hrm/Controller/Widget/ExpansionTileWidget.dart';
 import 'package:hrm/Controller/Widget/TextWidget.dart';
+import 'package:hrm/View/ProfileUpdate_screen/UpdateProfile_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../Controller/Provider/Provider.dart';
+import '../../../Controller/Route_names/Route_names.dart';
 import '../../../Controller/Secure_Storage/Components/Secure_Storage_keys.dart';
 import '../../../Controller/Secure_Storage/Secure_storage.dart';
 import '../../../Model/UserLogin_model.dart';
@@ -37,7 +39,7 @@ class _DrawerWidgetDataState extends State<DrawerWidgetData> {
   // }
   @override
   Widget build(BuildContext context) {
-   Provider.of<ProviderNotifier>(context).getDetails();
+   final providerData=Provider.of<ProviderNotifier>(context);
     return SafeArea(
       child: Drawer(
         shape: const Border(),
@@ -98,13 +100,17 @@ class _DrawerWidgetDataState extends State<DrawerWidgetData> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 8.0),
                   child: TextButton(
-                      onPressed: () => context.go('/updateProfile'),
+                      onPressed: () {
+                        // Navigator.pushNamed(context, "/UpdateProfile");
+                        // context.go('/${RouteNames.updateProfile}');
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdateProfileScreen(isFromHome: false,),));
+                      },
                       child: const Text('Personal Details')),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 8.0),
                   child: TextButton(
-                      onPressed: () => context.go('/updateProfile'),
+                      onPressed: () => context.go('/${RouteNames.updateProfile}'),
                       child: const Text('Education Details')),
                 ),
               ],
@@ -119,25 +125,25 @@ class _DrawerWidgetDataState extends State<DrawerWidgetData> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 8.0),
                   child: TextButton(
-                      onPressed: () => context.go('/LeaveRequestScreen'),
+                      onPressed: () => context.go('/${RouteNames.leaveRequestScreen}'),
                       child: const Text('Leave Request')),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 8.0),
                   child: TextButton(
-                      onPressed: () => context.go('/LeaveRequestScreen'),
+                      onPressed: () => context.go('/${RouteNames.leaveRequestScreen}'),
                       child: const Text('Leave Approval')),
                 ),
               ],
             ),
             const ExpansionTile(
               title: Text('Regularization'),
-              trailing: const SizedBox(),
+              trailing:  SizedBox(),
               shape: Border(),
             ),
             const ExpansionTile(
               title: Text('Calendar'),
-              trailing: const SizedBox(),
+              trailing:  SizedBox(),
               shape: Border(),
             ),
             ExpansionTile(
@@ -171,9 +177,8 @@ class _DrawerWidgetDataState extends State<DrawerWidgetData> {
                         ),
                         TextButton(
                           onPressed: () {
-                            SecureStorage.storage.delete(key: SecureStorageKeys.token);
-                            // SecureStorage.storage.delete(key: SecureStorageKeys.userData);
-                            context.go('/loginPage');
+                            providerData.logout(context);
+                            // context.go('/${RouteNames.loginPage}');
                           },
                           child: const Text('Logout'),
                         ),

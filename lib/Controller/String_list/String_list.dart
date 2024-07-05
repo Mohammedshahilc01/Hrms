@@ -27,6 +27,8 @@ class StringList {
   static String city = "City";
   static String zipcode = "Zip Code";
   static String contactNumber = "Contact Number";
+  static String tryAgainLater = "Try Again Later";
+  static String successfullySubmit = "successfully Submitted";
   static String secondaryNumber = "Secondary Number";
   static String resetPasswordHead = "Please provide the email address that you used when you signed up for your account.";
   static String restPasswordBody1 = "We will send you an email that will allow ";
