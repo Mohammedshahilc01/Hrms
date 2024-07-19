@@ -3,17 +3,18 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hrm/Controller/Color_list/Color_list.dart';
-import 'package:hrm/Controller/Widget/ExpansionTileWidget.dart';
-import 'package:hrm/Controller/Widget/TextWidget.dart';
-import 'package:hrm/View/ProfileUpdate_screen/UpdateProfile_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../../Controller/Color_list/Color_list.dart';
 import '../../../Controller/Provider/Provider.dart';
 import '../../../Controller/Route_names/Route_names.dart';
 import '../../../Controller/Secure_Storage/Components/Secure_Storage_keys.dart';
 import '../../../Controller/Secure_Storage/Secure_storage.dart';
+import '../../../Controller/Widget/TextWidget.dart';
 import '../../../Model/UserLogin_model.dart';
+import '../../LeaveRequest_screen/LeaveRequestScreen.dart';
+import '../../ProfileUpdate_screen/UpdateProfile_screen.dart';
+import '../../Regularization_screen/Regularization_screen.dart';
 
 class DrawerWidgetData extends StatefulWidget {
   const DrawerWidgetData({super.key});
@@ -25,18 +26,17 @@ class DrawerWidgetData extends StatefulWidget {
 class _DrawerWidgetDataState extends State<DrawerWidgetData> {
   UserLoginModel? _userLoginModel;
   @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   getUserDetails();
-  //   super.initState();
-  // }
-  //
-  // getUserDetails()async{
-  //   var value=await SecureStorage.storage.read(key: SecureStorageKeys.userData);
-  //   setState(() {
-  //     _userLoginModel=UserLoginModel.fromJson(jsonDecode(value!));
-  //   });
-  // }
+  void initState() {
+    getUserDetails();
+    super.initState();
+  }
+
+  getUserDetails()async{
+    var value=await SecureStorage.storage.read(key: SecureStorageKeys.userData);
+    setState(() {
+      _userLoginModel=UserLoginModel.fromJson(jsonDecode(value!));
+    });
+  }
   @override
   Widget build(BuildContext context) {
    final providerData=Provider.of<ProviderNotifier>(context);
@@ -46,49 +46,47 @@ class _DrawerWidgetDataState extends State<DrawerWidgetData> {
         elevation: 0.0,
         child: ListView(
           children: [
-            Consumer<ProviderNotifier>(
-              builder: (context, value, child) {
-                return Container(
-                  color: ColorList.backgroundColor,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 100,
-                          height: 100,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: AssetImage("Images/profileImage.jpg"),
-                                  fit: BoxFit.cover)),
-                        ),
-                        TextData(
-                          name: value.userLoginModel?.username,
-                          fontWeight: FontWeight.bold,
+            Container(
+              color:ColorList.backgroundColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      decoration: const BoxDecoration(
                           color: Colors.white,
-                        ),
-                        TextData(
-                          name: value.userLoginModel?.empId,
-                          color: Colors.white,
-                        ),
-                        TextData(
-                          name: value.userLoginModel?.designation,
-                          fontSize: 12,
-                          color: Colors.white,
-                        )
-                      ],
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: AssetImage("Images/profileImage.jpg"),
+                              fit: BoxFit.cover)),
                     ),
-                  ),
-                );
-              },
-
+                    TextData(
+                      name: _userLoginModel?.username,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    TextData(
+                      name: _userLoginModel?.empId,
+                      color: Colors.white,
+                    ),
+                    TextData(
+                      name: _userLoginModel?.designation,
+                      fontSize: 12,
+                      color: Colors.white,
+                    )
+                  ],
+                ),
+              ),
             ),
-            const ExpansionTile(
-              title: Text('Home'),
-              trailing: SizedBox(),
-              shape: Border(),
+             ExpansionTile(
+              onExpansionChanged: (value){
+                Navigator.pop(context);
+              },
+              title: const Text('Home'),
+              trailing: const SizedBox(),
+              shape: const Border(),
             ),
             ExpansionTile(
               title: const Text('Profile'),
@@ -110,7 +108,9 @@ class _DrawerWidgetDataState extends State<DrawerWidgetData> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 8.0),
                   child: TextButton(
-                      onPressed: () => context.go('/${RouteNames.updateProfile}'),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdateProfileScreen(isFromHome: false,),));
+                      },
                       child: const Text('Education Details')),
                 ),
               ],
@@ -125,26 +125,35 @@ class _DrawerWidgetDataState extends State<DrawerWidgetData> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 8.0),
                   child: TextButton(
-                      onPressed: () => context.go('/${RouteNames.leaveRequestScreen}'),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) =>  const LeaveRequestScreen(isFromHome: false,),));
+                        // context.go('/${RouteNames.leaveRequestScreen}');
+                      },
                       child: const Text('Leave Request')),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 8.0),
-                  child: TextButton(
-                      onPressed: () => context.go('/${RouteNames.leaveRequestScreen}'),
-                      child: const Text('Leave Approval')),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 20, right: 8.0),
+                //   child: TextButton(
+                //       onPressed: () => context.go('/${RouteNames.leaveRequestScreen}'),
+                //       child: const Text('Leave Approval')),
+                // ),
               ],
             ),
-            const ExpansionTile(
-              title: Text('Regularization'),
-              trailing:  SizedBox(),
-              shape: Border(),
+             ExpansionTile(
+              onExpansionChanged: (value){
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>  const RegularizationScreen(),));
+              },
+              title: const Text('Regularization'),
+              trailing:  const SizedBox(),
+              shape: const Border(),
             ),
-            const ExpansionTile(
-              title: Text('Calendar'),
-              trailing:  SizedBox(),
-              shape: Border(),
+             ExpansionTile(
+              onExpansionChanged: (value){
+                context.go('/${RouteNames.companyCalendarScreen}');
+              },
+              title: const Text('Calendar'),
+              trailing:  const SizedBox(),
+              shape:const Border(),
             ),
             ExpansionTile(
               title: const Text('Help'),

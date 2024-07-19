@@ -46,3 +46,67 @@
 //     );
 //   }
 // }
+
+
+
+
+//
+// import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
+//
+// import '../providerTimerCheck.dart';
+//
+// class HomeScreen extends StatefulWidget {
+//   @override
+//   State<HomeScreen> createState() => _HomeScreenState();
+// }
+//
+// class _HomeScreenState extends State<HomeScreen> {
+//   @override
+//   void initState() {
+//     // TODO: implement initState
+//     Provider.of<TimerCheckProvider>(context,listen: false).userCheckInTestQuery();
+//     super.initState();
+//   }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Flutter Timer with Provider'),
+//       ),
+//       body: Center(
+//         child: Consumer<TimerCheckProvider>(
+//           builder: (context, timerProvider, child) {
+//             return Column(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: <Widget>[
+//                 Text(
+//                   timerProvider.formattedTime,
+//                   style: TextStyle(fontSize: 48),
+//                 ),
+//                 SizedBox(height: 20),
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: <Widget>[
+//                     timerProvider.isStarted?ElevatedButton(
+//                       onPressed: timerProvider.isRunning
+//                           ? timerProvider.stopTimer
+//                           : timerProvider.startTimer,
+//                       child: Text(timerProvider.isRunning ? 'Stop' : 'Start'),
+//                     ):SizedBox(),
+//                     SizedBox(width: 10),
+//
+//                   ],
+//                 ),
+//               ],
+//             );
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+
+
+

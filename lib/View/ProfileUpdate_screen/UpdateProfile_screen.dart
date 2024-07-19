@@ -1,29 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hrm/Controller/Widget/TextWidget.dart';
-
+import 'package:provider/provider.dart';
 import '../../Controller/Color_list/Color_list.dart';
+import '../../Controller/Provider/Provider.dart';
 import '../../Controller/Route_names/Route_names.dart';
 import '../../Controller/String_list/String_list.dart';
 import '../../Controller/Widget/TextFormFieldWidget.dart';
+import '../../Controller/Widget/TextWidget.dart';
 import '../Home_screen/Components/CheckIn_widget.dart';
 import '../Home_screen/Components/Photo_widget.dart';
 
-class UpdateProfileScreen extends StatelessWidget {
+class UpdateProfileScreen extends StatefulWidget {
   final bool? isFromHome;
   const UpdateProfileScreen({super.key, this.isFromHome});
 
   @override
+  State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
+}
+
+class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
+  TextEditingController controllerDob=TextEditingController();
+  TextEditingController controllerEmail=TextEditingController();
+  TextEditingController controllerFatherName=TextEditingController();
+  TextEditingController controllerAddress=TextEditingController();
+  TextEditingController controllerState=TextEditingController();
+  TextEditingController controllerCity=TextEditingController();
+  TextEditingController controllerZipcode=TextEditingController();
+  TextEditingController controllerContact=TextEditingController();
+  TextEditingController controllerSecContact=TextEditingController();
+  var userDetails;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+   Provider.of<ProviderNotifier>(context, listen: false).getUserDetailQuery();
+   userDetails=Provider.of<ProviderNotifier>(context, listen: false).userDetailsModel;
+   controllerDob.text=userDetails?.userDetail?.dob??"";
+   controllerEmail.text=userDetails?.userDetail?.email??"";
+   controllerFatherName.text=userDetails?.userDetail?.firstName??"";
+   controllerAddress.text=userDetails?.userDetail?.address??"";
+   controllerState.text=userDetails?.userDetail?.address??"";
+   controllerCity.text=userDetails?.userDetail?.address??"";
+   controllerZipcode.text=userDetails?.userDetail?.address??"";
+   controllerContact.text=userDetails?.userDetail?.contactno??"";
+   controllerSecContact.text=userDetails?.userDetail?.contactno??"";
+   print('--------------------');
+   print(controllerEmail.text);
+   print('--------------------');
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
       child: Scaffold(
         backgroundColor: Colors.grey.shade100,
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              isFromHome == false ? Padding(
+              widget.isFromHome == false ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                   onTap: () {
@@ -40,7 +76,7 @@ class UpdateProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-              ):SizedBox.shrink(),
+              ):const SizedBox.shrink(),
               Expanded(
                 child: ListView(
                   padding: EdgeInsets.zero,
@@ -60,12 +96,12 @@ class UpdateProfileScreen extends StatelessWidget {
                                   fit: BoxFit.cover)),
                         ),
                         TextData(
-                          name: "Mohammed Shahil",
+                          name: userDetails?.userDetail?.firstName,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                         TextData(
-                          name: "S12345",
+                          name: userDetails?.userDetail?.empid,
                           color: Colors.black,
                         ),
                       ],
@@ -79,6 +115,7 @@ class UpdateProfileScreen extends StatelessWidget {
                           size: 20,
                         ),
                         hintText: StringList.dob,
+                        textEditingController: controllerDob,
                       ),
                     ),
                     Padding(
@@ -90,6 +127,7 @@ class UpdateProfileScreen extends StatelessWidget {
                           size: 20,
                         ),
                         hintText: StringList.email,
+                        textEditingController: controllerEmail,
                       ),
                     ),
                     Padding(
@@ -191,7 +229,7 @@ class UpdateProfileScreen extends StatelessWidget {
                                 )),
                               ))),
                     ),
-                    const SafeArea(child:  SizedBox(height: 90,)),
+                    widget.isFromHome==false?const SafeArea(child: SizedBox(height: 20,)):const SafeArea(child:  SizedBox(height: 80,)),
                   ],
                 ),
               )
@@ -202,3 +240,5 @@ class UpdateProfileScreen extends StatelessWidget {
     );
   }
 }
+
+

@@ -1,16 +1,15 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hrm/Controller/GlobalVariable/GlobalVariable.dart';
-import 'package:hrm/Controller/Secure_Storage/Components/Secure_Storage_keys.dart';
-import 'package:hrm/Controller/Secure_Storage/Secure_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../Controller/Color_list/Color_list.dart';
+import '../../Controller/GlobalVariable/GlobalVariable.dart';
 import '../../Controller/Provider/Provider.dart';
 import '../../Controller/Route_names/Route_names.dart';
+import '../../Controller/Secure_Storage/Components/Secure_Storage_keys.dart';
+import '../../Controller/Secure_Storage/Secure_storage.dart';
 import '../../Controller/String_list/String_list.dart';
 import '../../Controller/Widget/TextFormFieldWidget.dart';
 import '../../Controller/Widget/TextWidget.dart';
@@ -92,8 +91,8 @@ class _NewLeavePageState extends State<NewLeavePage> {
   @override
   Widget build(BuildContext context) {
     final providerData = Provider.of<ProviderNotifier>(context);
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
@@ -114,7 +113,8 @@ class _NewLeavePageState extends State<NewLeavePage> {
                               borderRadius: BorderRadius.circular(10)),
                           child: GestureDetector(
                             onTap: () {
-                              context.go('/${RouteNames.leaveRequestScreen}');
+                              // context.go('/${RouteNames.leaveRequestScreen}');
+                              Navigator.pop(context);
                             },
                             child: const Padding(
                               padding: EdgeInsets.all(8.0),
@@ -133,43 +133,125 @@ class _NewLeavePageState extends State<NewLeavePage> {
                       fontSize: 30,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          CustomLeaveStatus(
-                              textColor: Colors.green,
-                              color: Colors.greenAccent[100],
-                              leave: "Casual Leaves",
-                              days: 1,
-                              icon: const Icon(Icons.hotel_sharp,
-                                  size: 23, color: Colors.green)),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          CustomLeaveStatus(
-                              color: Colors.red[100],
-                              textColor: Colors.red,
-                              leave: "Sick Leaves",
-                              days: 3,
-                              icon: const Icon(Icons.sick,
-                                  size: 23, color: Colors.red)),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          CustomLeaveStatus(
-                              color: Colors.blue[100],
-                              textColor: Colors.blue,
-                              leave: "Privilege Leaves",
-                              days: 5,
-                              icon: const Icon(Icons.leave_bags_at_home,
-                                  size: 23, color: Colors.blue)),
-                        ],
-                      ),
-                    ),
+                  Consumer<ProviderNotifier>(
+                    builder: (context, value, child) {
+                      final data=value.userLeaveCountDetailsModel;
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child:Row(
+                            children: [
+                              CustomLeaveStatus(
+                                  textColor: Colors.green,
+                                  color: Colors.greenAccent[100],
+                                  leave: "Casual Leaves",
+                                  days: '${data?.leaveConfigurationByMe[0].casualLeave}',
+                                  icon: const Icon(Icons.hotel_sharp,
+                                      size: 23, color: Colors.green)),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              CustomLeaveStatus(
+                                  color: Colors.red[100],
+                                  textColor: Colors.red,
+                                  leave: "Sick Leaves",
+                                  days: '${data?.leaveConfigurationByMe[0].sickLeave}',
+                                  icon: const Icon(Icons.sick,
+                                      size: 23, color: Colors.red)),
+                              // const SizedBox(
+                              //   width: 5,
+                              // ),
+                              // CustomLeaveStatus(
+                              //     color: Colors.blue[100],
+                              //     textColor: Colors.blue,
+                              //     leave: "Privilege Leaves",
+                              //     days: 5,
+                              //     icon: const Icon(Icons.leave_bags_at_home,
+                              //         size: 23, color: Colors.blue)),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              CustomLeaveStatus(
+                                  textColor: Colors.orange,
+                                  color: Colors.orange[100],
+                                  leave: "Restricted Leave",
+                                  days:'${data?.leaveConfigurationByMe[0].restrictedLeave}',
+                                  icon: const Icon(Icons.home_outlined,
+                                      size: 23, color: Colors.orange)),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              CustomLeaveStatus(
+                                  textColor: Colors.pink,
+                                  color: Colors.pink[100],
+                                  leave: "EarnedLeave",
+                                  days:'${data?.leaveConfigurationByMe[0].earnedLeave}',
+                                  icon: const Icon(Icons.payments,
+                                      size: 23, color: Colors.pink)),
+                            ],
+                          ) ,
+                        ),
+                      );
+                    },
                   ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: SingleChildScrollView(
+                  //     scrollDirection: Axis.horizontal,
+                  //     child: Row(
+                  //       children: [
+                  //         CustomLeaveStatus(
+                  //             textColor: Colors.green,
+                  //             color: Colors.greenAccent[100],
+                  //             leave: "Casual Leaves",
+                  //             days: 1,
+                  //             icon: const Icon(Icons.hotel_sharp,
+                  //                 size: 23, color: Colors.green)),
+                  //         const SizedBox(
+                  //           width: 5,
+                  //         ),
+                  //         CustomLeaveStatus(
+                  //             color: Colors.red[100],
+                  //             textColor: Colors.red,
+                  //             leave: "Sick Leaves",
+                  //             days: 3,
+                  //             icon: const Icon(Icons.sick,
+                  //                 size: 23, color: Colors.red)),
+                  //         const SizedBox(
+                  //           width: 5,
+                  //         ),
+                  //         CustomLeaveStatus(
+                  //             color: Colors.blue[100],
+                  //             textColor: Colors.blue,
+                  //             leave: "Privilege Leaves",
+                  //             days: 5,
+                  //             icon: const Icon(Icons.leave_bags_at_home,
+                  //                 size: 23, color: Colors.blue)),
+                  //         const SizedBox(
+                  //           width: 5,
+                  //         ),
+                  //         CustomLeaveStatus(
+                  //             textColor: Colors.orange,
+                  //             color: Colors.orange[100],
+                  //             leave: "Work From Home",
+                  //             days: 1,
+                  //             icon: const Icon(Icons.home_outlined,
+                  //                 size: 23, color: Colors.orange)),
+                  //         const SizedBox(
+                  //           width: 5,
+                  //         ),
+                  //         CustomLeaveStatus(
+                  //             textColor: Colors.pink,
+                  //             color: Colors.pink[100],
+                  //             leave: "LOP",
+                  //             days: 1,
+                  //             icon: const Icon(Icons.payments,
+                  //                 size: 23, color: Colors.pink)),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.only(left: 15, right: 15, top: 8.0),
                     child: Container(
@@ -403,7 +485,20 @@ class _NewLeavePageState extends State<NewLeavePage> {
                             String requestDate =
                                 DateFormat('yyyy-MM-dd').format(DateTime.now());
                             if(typeOfLeave !=null && causeOfLeave !=null && from != nowDate  && toDate != nowDate){
+                                var variables={
+                                  "userId":"${userLoginModel?.id}",
+                                  "teamLeaderId":"${userLoginModel?.teamLeader}",
+                                  "requestedOn":"${requestDate}",
+                                  "leaveType":"${typeOfLeave}",
+                                  "reason":"${causeOfLeave}",
+                                  "leaveFrom":"${from}",
+                                  "leaveTill":"${toDate}",
+                                  "halfDay":""
+                                };
+                                // Map<String,dynamic> value=Map<String,dynamic>.from(jsonValue);
+                                print(variables);
                               providerData.userAddLeaveMutation(
+                                  variables,
                                   userLoginModel?.id,
                                   userLoginModel?.teamLeader,
                                   typeOfLeave,

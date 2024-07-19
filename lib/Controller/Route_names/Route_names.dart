@@ -12,4 +12,9 @@ class RouteNames{
   static String bottomNavigation="BottomNavigation";
   static String timerScreen="TimerScreen";
   static String timerTest="TimerTest";
+  static String regularizationScreen="RegularizationScreen";
+  static String companyCalendarScreen="CompanyCalendarScreen";
+  static String pdfviewScreen="PdfviewScreen";
+  static String notificationScreen="NotificationScreen";
+  static String workFromHomeScreen="WorkFromHomeScreen";
 }

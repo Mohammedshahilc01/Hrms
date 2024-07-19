@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hrm/Controller/Color_list/Color_list.dart';
-import 'package:hrm/Controller/GlobalVariable/GlobalVariable.dart';
-import 'package:hrm/Controller/Route_names/Route_names.dart';
-import 'package:hrm/Controller/String_list/String_list.dart';
-import 'package:hrm/Controller/Widget/TextWidget.dart';
-import 'package:hrm/View/Login_screen/Login_screen.dart';
-
+import '../../Controller/Color_list/Color_list.dart';
+import '../../Controller/Route_names/Route_names.dart';
 import '../../Controller/Secure_Storage/Components/Secure_Storage_keys.dart';
 import '../../Controller/Secure_Storage/Secure_storage.dart';
+import '../../Controller/String_list/String_list.dart';
+import '../../Controller/Widget/TextWidget.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

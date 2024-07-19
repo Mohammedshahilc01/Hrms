@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hrm/Controller/Widget/TextWidget.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../Controller/Color_list/Color_list.dart';
 import '../../Controller/Provider/Provider.dart';
 import '../../Controller/Route_names/Route_names.dart';
+import '../../Controller/Widget/TextWidget.dart';
 import '../../Model/UserLeaveRequestQuery_model.dart';
 import '../Home_screen/Components/bottomNavigationWidget.dart';
+import '../NewLeave_screen/NewLeave_screen.dart';
 
 class LeaveRequestScreen extends StatefulWidget {
-  const LeaveRequestScreen({super.key});
+  final bool? isFromHome;
+  const LeaveRequestScreen({super.key, this.isFromHome});
 
   @override
   State<LeaveRequestScreen> createState() => _LeaveRequestScreenState();
@@ -50,10 +52,13 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
+                      widget.isFromHome==false ?Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
-                          onTap: () => context.go('/${RouteNames.bottomNavigation}'),
+                          onTap: () {
+                            // context.go('/${RouteNames.bottomNavigation}');
+                            Navigator.pop(context);
+                          },
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.grey[100],
@@ -64,27 +69,7 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                             ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            context.go('/${RouteNames.newLeavePage}');
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: ColorList.backgroundColor,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      ):const SizedBox(),
                     ],
                   ),
                   Padding(
@@ -100,7 +85,8 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                       final length=value.userLeaveRequestQueryModel?.leaveRequestsByMe?.length;
                       final data=value.userLeaveRequestQueryModel?.leaveRequestsByMe;
                       if(length==null || length==0){
-                        return const Center(child: Text('No data Found'));
+                        return const Center(child: SizedBox(
+                            child: Image(image: AssetImage('Images/noDataFound.png'))));
                       }
                       return ListView.builder(
                         itemCount: length??0,
@@ -108,173 +94,77 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                           String fromDate = DateFormat('yyyy-MM-dd').format(data![index].leaveFrom!);
                           String toDate = DateFormat('yyyy-MM-dd').format(data[index].leaveTill!);
                           return Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15, bottom: 5.0),
-                                  child: TextData(
-                                    name:'${data[index].requestedOn}',
-                                    fontSize: 13,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: Colors.white,
-                                        border: Border.all(color: cardColor[index % cardColor.length])),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 3,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 15, bottom: 10, top: 10),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.stretch,
-                                                  children: [
-                                                    TextData(
-                                                      name: '${data?[index].leaveType}',
-                                                      fontSize: 15,
-                                                      color: Colors.grey,
-                                                      fontWeight: FontWeight.w300,
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        TextData(
-                                                          name: fromDate,
-                                                          fontSize: 15,
-                                                          fontWeight: FontWeight.w400,
-                                                        ),
-                                                        TextData(
-                                                          name: ' TO ',
-                                                          fontSize: 15,
-                                                          fontWeight: FontWeight.bold,
-                                                        ),
-                                                        TextData(
-                                                          name: toDate,
-                                                          fontSize: 15,
-                                                          fontWeight: FontWeight.w400,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    TextData(
-                                                      name: '${data[index].totalDays} Days',
-                                                      fontSize: 17,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: Colors.red,
-                                                    ),
-                                                    TextData(
-                                                      name: '${data[index].reason}',
-                                                      fontSize: 17,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: Colors.red,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.only(right: 10),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      top: 8.0, bottom: 8.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: [
-                                                      Container(
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius.circular(
-                                                                      5),
-                                                              color: Colors.yellow),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets.only(
-                                                                    left: 8.0,
-                                                                    right: 8.0,
-                                                                    top: 3,
-                                                                    bottom: 3),
-                                                            child: Center(
-                                                              child: TextData(
-                                                                name: '${data?[index].status}',
-                                                                fontSize: 13,
-                                                                color: Colors
-                                                                    .yellow.shade50,
-                                                              ),
-                                                            ),
-                                                          )),
-                                                      const SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      // GestureDetector(
-                                                      //     onTap: () {
-                                                      //       print(data[index].isExpanded);
-                                                      //       setState(() {
-                                                      //
-                                                      //         isExpandedAwaiting =
-                                                      //             !isExpandedAwaiting;
-                                                      //       });
-                                                      //     },
-                                                      //     child: Icon(
-                                                      //       isExpandedAwaiting
-                                                      //           ? Icons.expand_less
-                                                      //           : Icons.expand_more,
-                                                      //     )),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          ],
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 125,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: const [BoxShadow(
+                                      color: Colors.black12,
+                                      spreadRadius: 2,
+                                      blurRadius: 3,
+                                      offset: Offset(2, 2)
+                                  )]
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Expanded(
+                                      flex: 5,
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+                                          color: Colors.white,
                                         ),
-                                        AnimatedContainer(
-                                          duration: const Duration(milliseconds: 300),
-                                          curve: Curves.easeInOut,
-                                          height: isExpandedAwaiting ? 35 : 0,
-                                          child: SingleChildScrollView(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15, right: 8.0),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.spaceBetween,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top: 8.0,left: 8.0),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  TextData(
-                                                    // name: '${data?[index].lastUpdate}',
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.w300,
+                                                  TextData(name:'${value.userLeaveRequestQueryModel?.leaveRequestsByMe![index].requestedOn}',color: Colors.grey,fontSize: 12,),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(right: 10),
+                                                    child: Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(5),
+                                                            color: Colors.green[200]
+                                                        ),
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.all(5),
+                                                          child: Text('Pending',style: TextStyle(fontSize: 10,color: ColorList.backgroundColor),),
+                                                        )),
                                                   ),
-                                                  Icon(
-                                                    Icons.download,
-                                                    color: ColorList.backgroundColor,
+                                                ],
+                                              ),
+                                              TextData(name: '${value.userLeaveRequestQueryModel?.leaveRequestsByMe![index].leaveType}',fontSize: 16,fontWeight: FontWeight.bold,),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  TextData(name: 'From: $fromDate TO: $toDate',fontSize: 11,),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(right: 15),
+                                                    child: TextData(name: '${value.userLeaveRequestQueryModel?.leaveRequestsByMe![index].totalDays} Days',fontSize: 20,fontWeight: FontWeight.bold,),
                                                   )
                                                 ],
                                               ),
-                                            ),
+                                              TextData(name: '${value.userLeaveRequestQueryModel?.leaveRequestsByMe![index].reason}',fontSize: 12,)
+
+                                            ],
                                           ),
                                         ),
-                                      ],
+                                      )),
+                                  Expanded(child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.vertical(bottom: Radius.circular(15)),
+                                      color: ColorList.backgroundColor
                                     ),
-                                  ),
-                                ),
-                              ],
+                                  )),
+                                ],
+                              ),
                             ),
                           );
                         },
@@ -297,11 +187,71 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
                   return const Text('');
                 }
 
-              },)
+              },),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SafeArea(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const NewLeavePage(),));
+                              // context.go('/${RouteNames.newLeavePage}');
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: ColorList.backgroundColor,
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: const Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Icon(
+                                  Icons.add,
+                                  size: 30,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  widget.isFromHome==false?const SafeArea(child: SizedBox(height: 20,)):const SafeArea(child: SizedBox(height: 60,))
+                ],
+              )
             ],
+
           ),
         ),
         // bottomNavigationBar:const CustomBottomNavigationBar(),
+        // floatingActionButton: SafeArea(
+        //   child: Padding(
+        //     padding: const EdgeInsets.all(8.0),
+        //     child: GestureDetector(
+        //       onTap: () {
+        //         Navigator.push(context, MaterialPageRoute(builder: (context) => const NewLeavePage(),));
+        //         // context.go('/${RouteNames.newLeavePage}');
+        //       },
+        //       child: Container(
+        //         decoration: BoxDecoration(
+        //             color: ColorList.backgroundColor,
+        //             borderRadius: BorderRadius.circular(10)),
+        //         child: const Padding(
+        //           padding: EdgeInsets.all(8.0),
+        //           child: Icon(
+        //             Icons.add,
+        //             color: Colors.white,
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }

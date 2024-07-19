@@ -1,9 +1,10 @@
 
 class StringList {
   static String welcome = "Welcome back";
+  static String keelisHRMS = "Keelis-HRMS      ";
   static String orLoginWith = "or login with";
   static String dontHaveAccount = "dont't have an Account?";
-  static String singToContinue = "Hello there Sign in to Continue";
+  static String singToContinue = "Sign in to Continue";
   static String agreeWithTerms = "I agree with Terms & Conditions";
   static String keelInfoSolution = "Keel Info Solution PVT";
   static String copyright = "COPYRIGHT";

@@ -1,8 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:hrm/Controller/GlobalVariable/GlobalVariable.dart';
-import 'package:hrm/Controller/Widget/TextWidget.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../Controller/GlobalVariable/GlobalVariable.dart';
+import '../../../Controller/Route_names/Route_names.dart';
+import '../../../Controller/Widget/TextWidget.dart';
 class CustomPhoto extends StatelessWidget {
   
   Image? imgUrl;
@@ -49,9 +52,13 @@ class CustomPhoto extends StatelessWidget {
               )
             ],
           ),
-         const  Icon(
-            Icons.notifications,
-            color: Colors.grey,
+           IconButton(
+           onPressed: (){
+             {
+               context.go('/${RouteNames.notificationScreen}');
+             }
+           },
+           icon: Icon(Icons.notifications),
           )
         ],
       ),

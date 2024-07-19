@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hrm/Controller/MyRouter/routers.dart';
-import 'package:hrm/Controller/Secure_Storage/Secure_storage.dart';
 import 'package:provider/provider.dart';
 
+import 'Controller/MyRouter/routers.dart';
 import 'Controller/Provider/Provider.dart';
+import 'Controller/Secure_Storage/Secure_storage.dart';
 import 'Model/Local_notification.dart';
+import 'View/providerTimerCheck.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
@@ -20,21 +21,26 @@ void main() async {
   await initHiveForFlutter();
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create:(context)=>ProviderNotifier()),
-          ChangeNotifierProvider(create: (context) => TimerProvider(),)
+          ChangeNotifierProvider(create: (context) => TimerProvider(),),
         ],
         child: MaterialApp.router(
           routerConfig: MyRouter.router,
-
         ),
       ),
     );

@@ -1,25 +1,23 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hrm/Controller/Api_services/Api_services.dart';
-import 'package:hrm/Controller/Color_list/Color_list.dart';
-import 'package:hrm/Controller/GlobalVariable/GlobalVariable.dart';
-import 'package:hrm/Controller/Provider/Provider.dart';
-import 'package:hrm/Controller/Route_names/Route_names.dart';
-import 'package:hrm/Controller/Secure_Storage/Components/Secure_Storage_keys.dart';
-import 'package:hrm/Controller/String_list/String_list.dart';
-import 'package:hrm/Controller/Widget/TextFormFieldWidget.dart';
-import 'package:hrm/Controller/Widget/TextWidget.dart';
-import 'package:hrm/Model/UserLogin_model.dart';
-import 'package:hrm/View/ForgotPassword_screen/ForgotPassword_screen.dart';
-import 'package:hrm/View/Home_screen/Home_screen.dart';
 import 'package:provider/provider.dart';
-
+import '../../Controller/Api_services/Api_services.dart';
+import '../../Controller/Color_list/Color_list.dart';
+import '../../Controller/GlobalVariable/GlobalVariable.dart';
+import '../../Controller/Provider/Provider.dart';
+import '../../Controller/Route_names/Route_names.dart';
+import '../../Controller/Secure_Storage/Components/Secure_Storage_keys.dart';
 import '../../Controller/Secure_Storage/Secure_storage.dart';
+import '../../Controller/String_list/String_list.dart';
 import '../../Controller/Widget/PasswordTextFormFieldWidget.dart';
+import '../../Controller/Widget/TextFormFieldWidget.dart';
+import '../../Controller/Widget/TextWidget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -32,8 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
-  final ApiServices _apiServices=ApiServices();
+  final ApiServicesMutation _apiServices=ApiServicesMutation();
   bool loading=false;
+  final formKey = GlobalKey<FormState>();
 
   // void login()async{
   //  try{
@@ -65,6 +64,28 @@ class _LoginScreenState extends State<LoginScreen> {
   //    }
   //  }
   // }
+
+  @override
+  void initState() {
+    pageView();
+    super.initState();
+  }
+  Future<void> pageView() async {
+    var token=(await SecureStorage.storage.read(key: SecureStorageKeys.token));
+    if (token != null && token.isNotEmpty){
+      Future.delayed(
+        const Duration(seconds: 0),
+            () => context.go("/${RouteNames.bottomNavigation}"),
+      );
+    }
+    // else{
+    //   Future.delayed(
+    //     const Duration(seconds: 2),
+    //         () => context.go("/${RouteNames.loginPage}"),
+    //   );
+    // }
+  }
+
   @override
   Widget build(BuildContext context) {
     final providerData=Provider.of<ProviderNotifier>(context);
@@ -73,8 +94,8 @@ class _LoginScreenState extends State<LoginScreen> {
     ));
     return Scaffold(
         // resizeToAvoidBottomInset: false,
-        body: WillPopScope(
-          onWillPop: () async => false,
+        body: PopScope(
+          canPop: false,
           child: SingleChildScrollView(
                 child: Stack(
           children: [
@@ -98,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Colors.transparent,
                       ),
                       TextData(
-                        name: PageNames.signInPage,
+                        name: "",
                         fontSize: 16,
                       ),
                       IconButton(
@@ -121,119 +142,148 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
             Form(
-              key: GlobalVariable.formKey,
+              key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
                     height: MediaQuery.of(context).size.height / 3.2,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: TextData(
-                      name: StringList.welcome,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 20),
+                  //   child: TextData(
+                  //     name: StringList.welcome,
+                  //     fontWeight: FontWeight.bold,
+                  //     fontSize: 20,
+                  //   ),
+                  // ),
+
+
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsets.only(top: 15, left: 15, right: 20),
+                  //   child: Row(
+                  //     children: [
+                  //       Expanded(
+                  //         child: Container(
+                  //           decoration: BoxDecoration(
+                  //               borderRadius: BorderRadius.circular(30),
+                  //               color: Colors.white,
+                  //               boxShadow: [
+                  //                 BoxShadow(
+                  //                     color: Colors.grey.shade100,
+                  //                     spreadRadius: 2,
+                  //                     blurRadius: 2)
+                  //               ]),
+                  //           child: Row(
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: [
+                  //               Padding(
+                  //                 padding: const EdgeInsets.all(5.0),
+                  //                 child: Container(
+                  //                   height: 35,
+                  //                   width: 35,
+                  //                   decoration: const BoxDecoration(
+                  //                       image: DecorationImage(
+                  //                           image: AssetImage(
+                  //                               'Images/google_logo.png'))),
+                  //                 ),
+                  //               ),
+                  //               const SizedBox(
+                  //                 width: 10,
+                  //               ),
+                  //               TextData(
+                  //                 name: 'Google',
+                  //               )
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       const SizedBox(
+                  //         width: 15,
+                  //       ),
+                  //       Expanded(
+                  //         child: Container(
+                  //           decoration: BoxDecoration(
+                  //               borderRadius: BorderRadius.circular(30),
+                  //               color: Colors.white,
+                  //               boxShadow: [
+                  //                 BoxShadow(
+                  //                     color: Colors.grey.shade100,
+                  //                     spreadRadius: 2,
+                  //                     blurRadius: 2)
+                  //               ]),
+                  //           child: Row(
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: [
+                  //               Padding(
+                  //                 padding: const EdgeInsets.all(5.0),
+                  //                 child: Container(
+                  //                   height: 35,
+                  //                   width: 35,
+                  //                   decoration: const BoxDecoration(
+                  //                       image: DecorationImage(
+                  //                           image: AssetImage(
+                  //                               'Images/outlook_Logo.png'))),
+                  //                 ),
+                  //               ),
+                  //               const SizedBox(
+                  //                 width: 10,
+                  //               ),
+                  //               TextData(
+                  //                 name: 'Outlook',
+                  //               )
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
+                   Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                          image: AssetImage('Images/Sapiens.png'),fit: BoxFit.fill,
+                        ),
+                        color: Colors.pink
+                      ),
+                      height: 100,
+                        width: 100,
                     ),
                   ),
+                  const SizedBox(height: 10,),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 20),
+                  //   child: Align(
+                  //     alignment: Alignment.center,
+                  //     child: TextData(
+                  //       name: StringList.keelisHRMS,
+                  //       fontWeight: FontWeight.bold,
+                  //       color: ColorList.backgroundColor,
+                  //       fontSize: 20,
+                  //     ),
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 20),
+                  //   child: TextData(
+                  //     name: StringList.singToContinue,
+                  //     fontSize: 12,
+                  //     color: Colors.grey,
+                  //   ),
+                  // ),
+                  // Align(
+                  //     alignment: Alignment.center,
+                  //     child: TextData(
+                  //         name: StringList.orLoginWith, color: Colors.grey)),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: TextData(
-                      name: StringList.singToContinue,
-                      fontSize: 12,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 15, left: 15, right: 20),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey.shade100,
-                                      spreadRadius: 2,
-                                      blurRadius: 2)
-                                ]),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Container(
-                                    height: 35,
-                                    width: 35,
-                                    decoration: const BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                'Images/google_logo.png'))),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                TextData(
-                                  name: 'Google',
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey.shade100,
-                                      spreadRadius: 2,
-                                      blurRadius: 2)
-                                ]),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Container(
-                                    height: 35,
-                                    width: 35,
-                                    decoration: const BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                'Images/outlook_Logo.png'))),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                TextData(
-                                  name: 'Outlook',
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Align(
-                      alignment: Alignment.center,
-                      child: TextData(
-                          name: StringList.orLoginWith, color: Colors.grey)),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 20),
+                    padding: const EdgeInsets.only(left: 20, top: 10  ),
                     child: TextData(
                       name: StringList.email,
                       fontWeight: FontWeight.bold,
@@ -284,7 +334,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           const EdgeInsets.only(left: 20, right: 20, top: 20),
                       child: InkWell(
                         onTap: () {
-                          if (GlobalVariable.formKey.currentState!.validate()) {
+                          if (formKey.currentState!.validate()) {
                             providerData.login(_controllerEmail.text.trim(),_controllerPassword.text.trim(),context);
                             // login();
                           }
@@ -306,7 +356,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             )),
                       )),
                   Padding(
-                    padding: const EdgeInsets.only(right: 20, top: 20),
+                    padding: const EdgeInsets.only(right: 20, top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -321,6 +371,31 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
+                  ),
+                  Column(
+                    children: [
+                      // Text('${MediaQuery.of(context).size.height/12}'),
+                       const SizedBox(
+                        height:67,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(),
+                        child: TextData(
+                          name: 'Powered by',
+                          color: ColorList.keelInfo,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: TextData(
+                          name: StringList.keelInfoSolution,
+                          color: ColorList.keelInfo,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(height: 10,),
+                    ],
                   ),
                 ],
               ),

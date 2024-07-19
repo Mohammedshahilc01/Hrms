@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hrm/Controller/Widget/TextWidget.dart';
+
+import '../../../Controller/Widget/TextWidget.dart';
 class CustomAnnouncement extends StatelessWidget {
   String? title;
   String? data;

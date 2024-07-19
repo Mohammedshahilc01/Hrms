@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hrm/Controller/Color_list/Color_list.dart';
-import 'package:hrm/Controller/String_list/String_list.dart';
-import 'package:hrm/Controller/Widget/TextFormFieldWidget.dart';
-import 'package:hrm/Controller/Widget/TextWidget.dart';
-
+import '../../Controller/Color_list/Color_list.dart';
 import '../../Controller/Route_names/Route_names.dart';
+import '../../Controller/String_list/String_list.dart';
+import '../../Controller/Widget/TextFormFieldWidget.dart';
+import '../../Controller/Widget/TextWidget.dart';
 class ForgotpasswordScreen extends StatelessWidget {
   const ForgotpasswordScreen({super.key});
 

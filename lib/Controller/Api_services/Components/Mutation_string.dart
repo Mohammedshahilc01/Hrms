@@ -27,6 +27,7 @@ class MutationString {
       }
     }
   """;
+
   static String logoutMutation = """
   mutation Logout(\$id: String!) {
     logout(id: \$id) {
@@ -59,4 +60,63 @@ class MutationString {
     }
   }
   """;
+  // static String checkInmutation = """
+  //   mutation checkin(\$id: String!) {
+  //     checkInUpdate(id: \$id) {
+  //       set
+  //       checkin {
+  //         id
+  //         user {
+  //           id
+  //         }
+  //       }
+  //     }
+  //   }
+  // """;
+
+
+  static String checkInLoginMutation = """
+  mutation Login(\$id: String!) {
+    login(id: \$id) {
+      set
+    }
+  }
+  """;
+
+  static String checkInMutation = '''
+  mutation checkin(\$id:String!){
+    checkInUpdate(id:\$id){
+      set
+      checkin{
+        id
+        user{
+          id
+        }
+      }
+    }
+  }
+''';
+
+  static String checkOutLogOutMutation = """
+  mutation Logout(\$id: String!) {
+    Logout(id: \$id) {
+      set
+    }
+  }
+  """;
+
+  static String checkOutmutation = """
+    mutation checkOut(\$id: String!) {
+      checkOut(id: \$id) {
+        set
+        checkout {
+          id
+          user {
+            id
+          }
+        }
+      }
+    }
+  """;
+
 }
